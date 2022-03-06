@@ -1,7 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { useLocalStorage } from '@vueuse/core'
+
 import PageVideo from 'pages/components/PageVideo.vue'
 import DisplayButtonGroup from './DisplayButtonGroup.vue'
+import FitResponsiveToParent from 'components/FitResponsiveToParent.vue'
 
 defineProps({
   component: {
@@ -16,18 +18,14 @@ defineProps({
   }
 })
 
-const verticalSplitter = ref(50)
-const horizontalSplitter = ref(50)
+const verticalSplitter = useLocalStorage('verticalSplitter', 50)
+const horizontalSplitter = useLocalStorage('horizontalSplitter', 80)
 
-const viewMode = ref('default')
+const viewMode = useLocalStorage('viewMode', 'default')
 </script>
 
 <template>
   <q-page class="column">
-    <!-- it can be split vertically -->
-    <!-- it can be split horizontally -->
-    <!-- it can make the video full width -->
-    <!-- it can make the a set to default width -->
     <DisplayButtonGroup
       v-model="viewMode"
     />
@@ -60,19 +58,23 @@ const viewMode = ref('default')
         v-model="horizontalSplitter"
         horizontal
         style="height: calc(100vh - 87px)"
+        before-class="q-pa-md"
       >
         <template #before>
-          <div class="full-height column">
-            <PageVideo
-              v-if="videoId"
-              :video-id="videoId"
-              style="height: 100px"
-            />
+          <div class="row flex-center full-height">
+            <FitResponsiveToParent
+              :ratio="16 / 9"
+              :debounce="10"
+            >
+              <PageVideo
+                v-if="videoId"
+                :video-id="videoId"
+              />
+            </FitResponsiveToParent>
           </div>
         </template>
         <template #after>
-          <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate id, quo vitae ipsum dignissimos porro minus quia obcaecati, libero suscipit, quam sequi consequatur sint voluptatum? Perferendis minima adipisci possimus laboriosam.</div>
-          <!-- <component :is="component" /> -->
+          <component :is="component" />
         </template>
       </q-splitter>
     </div>
@@ -90,7 +92,7 @@ const viewMode = ref('default')
     >
       <div class="flex flex-center">
         <div
-          style="max-width: 65vw"
+          style="max-width: 63vw"
           class="full-width"
         >
           <PageVideo
@@ -99,6 +101,10 @@ const viewMode = ref('default')
           />
         </div>
       </div>
+      <q-separator
+        class="q-mt-xl"
+        spaced
+      />
       <component
         :is="component"
         class="col-12"
