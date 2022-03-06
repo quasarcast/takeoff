@@ -6,6 +6,11 @@ const props = defineProps({
     required: false,
     type: String,
     default: ''
+  },
+  ratio: {
+    required: false,
+    type: Number,
+    default: 16 / 9
   }
 })
 
@@ -20,7 +25,8 @@ const videoUrl = computed(() => {
 <template>
   <q-video
     class="col"
-    :ratio="16/9"
+    :ratio="ratio"
+    style="height: 300px"
     :src="videoUrl"
   />
 </template>

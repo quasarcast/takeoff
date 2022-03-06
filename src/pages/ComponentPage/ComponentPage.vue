@@ -16,7 +16,8 @@ defineProps({
   }
 })
 
-const splitter = ref(50)
+const verticalSplitter = ref(50)
+const horizontalSplitter = ref(50)
 
 const viewMode = ref('default')
 </script>
@@ -36,7 +37,7 @@ const viewMode = ref('default')
       class="col flex"
     >
       <q-splitter
-        v-model="splitter"
+        v-model="verticalSplitter"
         class="col"
       >
         <template #before>
@@ -56,44 +57,52 @@ const viewMode = ref('default')
       class="col column"
     >
       <q-splitter
-        v-model="splitter"
+        v-model="horizontalSplitter"
         horizontal
-        class="col"
+        style="height: calc(100vh - 87px)"
       >
         <template #before>
-          <PageVideo
-            v-if="videoId"
-            :video-id="videoId"
-          />
+          <div class="full-height column">
+            <PageVideo
+              v-if="videoId"
+              :video-id="videoId"
+              style="height: 100px"
+            />
+          </div>
         </template>
         <template #after>
-          <component :is="component" />
+          <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate id, quo vitae ipsum dignissimos porro minus quia obcaecati, libero suscipit, quam sequi consequatur sint voluptatum? Perferendis minima adipisci possimus laboriosam.</div>
+          <!-- <component :is="component" /> -->
         </template>
       </q-splitter>
     </div>
 
-    <!-- <q-splitter v-model="splitter">
-      <template #before>
-        <PageVideo
-          v-if="videoId"
-          :video-id="videoId"
-        />
-      </template>
-      <template #after>
-        <component :is="component" />
-      </template>
-    </q-splitter> -->
+    <div v-if="viewMode === 'full-width'">
+      <PageVideo
+        v-if="videoId"
+        :video-id="videoId"
+      />
+      <component :is="component" />
+    </div>
 
-    <!-- <q-splitter v-model="splitter">
-      <template #before>
-        <PageVideo
-          v-if="videoId"
-          :video-id="videoId"
-        />
-      </template>
-      <template #after>
-        <component :is="component" />
-      </template>
-    </q-splitter> -->
+    <div
+      v-if="viewMode === 'default'"
+    >
+      <div class="flex flex-center">
+        <div
+          style="max-width: 65vw"
+          class="full-width"
+        >
+          <PageVideo
+            v-if="videoId"
+            :video-id="videoId"
+          />
+        </div>
+      </div>
+      <component
+        :is="component"
+        class="col-12"
+      />
+    </div>
   </q-page>
 </template>

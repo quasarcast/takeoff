@@ -5,7 +5,7 @@
 <template>
   <div class="q-pa-lg">
     <q-banner class="bg-red text-white">
-      Buy Now!
+      Buy More!
     </q-banner>
   </div>
 </template>
