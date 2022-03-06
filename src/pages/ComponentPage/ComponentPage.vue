@@ -4,8 +4,9 @@ import { useLocalStorage } from '@vueuse/core'
 import PageVideo from 'pages/components/PageVideo.vue'
 import DisplayButtonGroup from './DisplayButtonGroup.vue'
 import FitResponsiveToParent from 'components/FitResponsiveToParent.vue'
+import { computed } from 'vue'
 
-defineProps({
+const props = defineProps({
   component: {
     required: true,
     type: [Object, Function]
@@ -18,6 +19,10 @@ defineProps({
   }
 })
 
+const videoUrl = computed(() => {
+  return 'https://www.youtube.com/embed/' + props.videoId
+})
+
 const verticalSplitter = useLocalStorage('verticalSplitter', 50)
 const horizontalSplitter = useLocalStorage('horizontalSplitter', 80)
 
@@ -26,9 +31,24 @@ const viewMode = useLocalStorage('viewMode', 'default')
 
 <template>
   <q-page class="column">
-    <DisplayButtonGroup
-      v-model="viewMode"
-    />
+    <div class="row">
+      <DisplayButtonGroup
+        v-model="viewMode"
+      />
+      <q-space />
+      <q-btn
+        dense
+        flat
+        icon="videocam_off"
+        @click="viewMode = 'video-off'"
+      />
+      <q-btn
+        dense
+        flat
+        icon="widgets"
+        @click="viewMode = 'component-off'"
+      />
+    </div>
 
     <div
       v-if="viewMode === 'vertical'"
@@ -92,13 +112,18 @@ const viewMode = useLocalStorage('viewMode', 'default')
     >
       <div class="flex flex-center">
         <div
-          style="max-width: 63vw"
-          class="full-width"
+          style="height: calc(100vh - 350px)"
+          class="full-width flex flex-center"
         >
-          <PageVideo
-            v-if="videoId"
-            :video-id="videoId"
-          />
+          <FitResponsiveToParent
+            :ratio="16 / 9"
+            :debounce="10"
+          >
+            <PageVideo
+              v-if="videoId"
+              :video-id="videoId"
+            />
+          </FitResponsiveToParent>
         </div>
       </div>
       <q-separator
@@ -108,6 +133,30 @@ const viewMode = useLocalStorage('viewMode', 'default')
       <component
         :is="component"
         class="col-12"
+      />
+    </div>
+
+    <div
+      v-if="viewMode === 'popout-scratchpad' || viewMode === 'component-off'"
+      class="flex flex-center"
+      style="height: calc(100vh - 120px)"
+    >
+      <FitResponsiveToParent
+        :debounce="10"
+        :ratio="16 / 9"
+      >
+        <q-video
+          class="col"
+          :ratio="16 / 9"
+          style="height: 300px"
+          :src="videoUrl"
+        />
+      </FitResponsiveToParent>
+    </div>
+
+    <div v-if="viewMode === 'popout-video' || viewMode === 'video-off'">
+      <component
+        :is="component"
       />
     </div>
   </q-page>
