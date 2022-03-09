@@ -1,13 +1,13 @@
 export default {
-  QCard: 'MqfUL6upaMU',
-  QTable: 'u4d6PeQje1Q',
-  QChip: 'QDMdsG50nZI',
-  QChatMessage: 'GygiE0JuQ7I',
-  QBreadcrumbs: 'z2u9Tn-0-Oc',
-  QBar: '09TKOaaV_Xw',
-  QAjaxBar: 'NjDaLyo4X_s',
-  QBanner: 'zas-tasp1ds',
-  QRating: 'b2-LDAUHjfw',
-  QImg: 'GZPnMsNw-aY',
-  QToolbar: 'At02gYIXOBk'
+  QCard: '784',
+  QTable: '784',
+  QChip: '784',
+  QChatMessage: '784',
+  QBreadcrumbs: '784',
+  QBar: '784',
+  QAjaxBar: '784',
+  QBanner: '784',
+  QRating: '784',
+  QImg: '784',
+  QToolbar: '784'
 }

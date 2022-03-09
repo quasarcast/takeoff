@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue'
 import FitResponsiveToParent from 'components/FitResponsiveToParent.vue'
+import SourceVideo from 'components/SourceVideo/SourceVideo.vue'
 
 const props = defineProps({
   videoId: {
@@ -14,13 +14,6 @@ const props = defineProps({
     default: 16 / 9
   }
 })
-
-const videoUrl = computed(() => {
-  if (props.videoId) {
-    return 'https://www.youtube.com/embed/' + props.videoId
-  }
-  return ''
-})
 </script>
 
 <template>
@@ -32,11 +25,10 @@ const videoUrl = computed(() => {
       :debounce="10"
       :ratio="ratio"
     >
-      <q-video
+      <SourceVideo
         class="col"
         :ratio="ratio"
-        style="height: 300px"
-        :src="videoUrl"
+        :video-id="props.videoId"
       />
     </FitResponsiveToParent>
   </div>

@@ -13,9 +13,10 @@ const routes = modelFileContext.keys().map(modelPath => {
   return {
     path,
     componentName,
-    component: () => import('pages/ComponentPage/ComponentPage.vue'),
+    component: () => import('pages/LessonPage/LessonPage.vue'),
     props: {
-      component: markRaw(modelFileContext(modelPath).default),
+      scratchpadComponent: markRaw(modelFileContext(modelPath).default),
+      videoSlug: path,
       videoId: videoIds[componentName] ?? null
     }
   }

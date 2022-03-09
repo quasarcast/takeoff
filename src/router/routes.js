@@ -10,7 +10,7 @@ const routes = [
       ...require('src/components').default
     ]
   },
-  ...require('./popupRoutes').default,
+  ...require('./popoutRoutes').default,
 
   // Always leave this as last one,
   // but you can also remove it

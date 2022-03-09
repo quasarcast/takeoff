@@ -1,5 +1,5 @@
 import { kebabCase } from 'lodash-es'
-import PopupVideoVue from 'pages/components/PopupVideo.vue'
+import PopoutVideoPageVue from 'pages/PopoutVideoPage.vue'
 import videoIds from 'src/videoIds'
 import { markRaw } from 'vue'
 
@@ -12,8 +12,8 @@ modelFileContext.keys().forEach(modelPath => {
     .replace('.vue', '')
     .replace('./', '')
 
-  const componentPath = '/popup/components/' + kebabCase(componentName)
-  const videoPath = '/popup/videos/' + kebabCase(componentName)
+  const componentPath = '/popout/components/' + kebabCase(componentName)
+  const videoPath = '/popout/videos/' + kebabCase(componentName)
 
   routes.push({
     path: componentPath,
@@ -22,7 +22,7 @@ modelFileContext.keys().forEach(modelPath => {
 
   routes.push({
     path: videoPath,
-    component: markRaw(PopupVideoVue),
+    component: markRaw(PopoutVideoPageVue),
     props: {
       videoId: videoIds[componentName] ?? null,
       class: 'full-width'
