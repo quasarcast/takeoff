@@ -3,7 +3,7 @@ import PopoutVideoPageVue from 'pages/PopoutVideoPage.vue'
 import videoIds from 'src/videoIds'
 import { markRaw } from 'vue'
 
-const modelFileContext = require.context('src/componentScratchpads', false, /\.vue$/)
+const modelFileContext = require.context('src/scratchpads', false, /\.vue$/)
 
 const routes = []
 

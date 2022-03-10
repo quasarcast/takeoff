@@ -2,7 +2,7 @@ import { kebabCase } from 'lodash-es'
 import { markRaw } from 'vue'
 import videoIds from './videoIds'
 
-const modelFileContext = require.context('src/componentScratchpads', false, /\.vue$/)
+const modelFileContext = require.context('src/scratchpads', false, /\.vue$/)
 const routes = modelFileContext.keys().map(modelPath => {
   const componentName = modelPath
     .replace('.vue', '')

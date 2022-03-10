@@ -5,7 +5,7 @@
 <template>
   <div class="q-pa-lg">
     <q-banner class="bg-red text-white">
-      sdfgsdgf
+      You can build anything...
     </q-banner>
   </div>
 </template>
