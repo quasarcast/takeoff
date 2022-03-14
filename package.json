@@ -1,8 +1,8 @@
 {
   "name": "quasarcast-components-playground",
   "version": "0.0.1",
-  "description": "QuasarCast Component Playground",
-  "productName": "QuasarCast Component Playground",
+  "description": "Quasar Takeoff! (Learn Quasar By DOING)",
+  "productName": "Quasar Takeoff",
   "author": "luke@quasarcast.com",
   "private": true,
   "scripts": {
@@ -22,6 +22,7 @@
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
+    "@quasar/cli": "^1.2.0",
     "@babel/eslint-parser": "^7.17.0",
     "@quasar/app": "^3.0.0",
     "eslint": "^8.10.0",
