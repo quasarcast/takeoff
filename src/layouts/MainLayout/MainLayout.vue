@@ -1,3 +1,13 @@
+<script setup>
+import { ref } from 'vue'
+import ComponentsList from './ComponentsList.vue'
+import useLeftDrawer from './useLeftDrawer'
+
+const { leftDrawerOpen, toggleLeftDrawer } = useLeftDrawer()
+
+const componentListComponent = ref()
+</script>
+
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header>
@@ -28,10 +38,12 @@
         </q-item-label>
 
         <q-expansion-item
+          :duration="150"
           label="Components"
           icon="widgets"
+          @after-show="componentListComponent.focusFilterInput()"
         >
-          <ComponentsList />
+          <ComponentsList ref="componentListComponent" />
         </q-expansion-item>
       </q-list>
     </q-drawer>
@@ -41,10 +53,3 @@
     </q-page-container>
   </q-layout>
 </template>
-
-<script setup>
-import ComponentsList from './ComponentsList.vue'
-import useLeftDrawer from './useLeftDrawer'
-
-const { leftDrawerOpen, toggleLeftDrawer } = useLeftDrawer()
-</script>

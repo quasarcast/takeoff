@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import components from '../../components'
 import useLeftDrawer from './useLeftDrawer'
 
@@ -17,16 +17,24 @@ const visibleComponents = computed(() => {
 })
 
 const { closeLeftDrawer } = useLeftDrawer()
+
+const filterInputComponent = ref()
+
+defineExpose({
+  focusFilterInput: () => filterInputComponent.value.focus()
+})
 </script>
 
 <template>
   <q-list>
     <q-item :inset-level="1">
       <q-input
+        ref="filterInputComponent"
         v-model="filter"
         dense
         outlined
         clearable
+        autofocus
       >
         <template #prepend>
           <q-icon name="search" />
