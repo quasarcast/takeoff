@@ -1,5 +1,4 @@
 <script setup>
-import FitResponsiveToParent from 'components/FitResponsiveToParent.vue'
 import SourceVideo from 'components/SourceVideo/SourceVideo.vue'
 defineProps({
   scratchpadComponent: {

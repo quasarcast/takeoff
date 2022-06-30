@@ -31,10 +31,13 @@ const props = defineProps({
   }
 })
 
-const { open: openVideoPopout } = useOpenVideoPopout(props.videoSlug)
-const { open: openComponentPopout } = useOpenComponentPopout(props.videoSlug)
+const viewMode = useLocalStorage('viewMode', 'standard')
 
-const viewMode = useLocalStorage('viewMode', 'default')
+const videoPopouter = useOpenVideoPopout(props.videoSlug)
+const componentPopouter = useOpenComponentPopout(props.videoSlug)
+
+videoPopouter.onClose(() => (viewMode.value = 'standard'))
+componentPopouter.onClose(() => (viewMode.value = 'standard'))
 </script>
 
 <template>
@@ -42,8 +45,8 @@ const viewMode = useLocalStorage('viewMode', 'default')
     <div class="row">
       <DisplayButtonGroup
         v-model="viewMode"
-        @open-video-popout="openVideoPopout"
-        @open-scratchpad-popout="openComponentPopout"
+        @open-video-popout="videoPopouter.open"
+        @open-scratchpad-popout="componentPopouter.open"
       />
       <q-space />
       <q-btn

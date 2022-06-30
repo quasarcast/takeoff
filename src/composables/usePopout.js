@@ -22,7 +22,7 @@ export default (locationParam, optionsParam = {}) => {
   const location = ref(locationParam)
   const options = ref(deepmerge(defaultOptions, optionsParam))
 
-  let onBeforeUnloadFunction = null
+  const onCloseFunctions = ref([])
 
   function getPopoutOptionsString () {
     const resultArray = []
@@ -40,21 +40,23 @@ export default (locationParam, optionsParam = {}) => {
       options.value.popout = Object.assign({}, options.value.popout, dimensions)
     }
 
-    popoutWindow.value = markRaw(window.open(
+    const wind = window.open(
       location.value,
       'popUpWindow',
       getPopoutOptionsString()
-    ))
-    if (onBeforeUnloadFunction) {
-      popoutWindow.value.onbeforeunload = onBeforeUnloadFunction
+    )
+
+    wind.onpagehide = (event) => {
+      setTimeout(() => {
+        if (event.path[0] === null) {
+          onCloseFunctions.value.forEach(fn => fn())
+        }
+      }, 200)
     }
   }
 
   function onClose (onCloseFunction) {
-    onBeforeUnloadFunction = onCloseFunction
-    if (popoutWindow.value) {
-      popoutWindow.value.onbeforeunload = onCloseFunction
-    }
+    onCloseFunctions.value.push(onCloseFunction)
   }
 
   function sendMessage (message) {
